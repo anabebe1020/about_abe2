@@ -1,11 +1,13 @@
+import 'package:about_abe_2/provider/home/provider.dart';
 import 'package:about_abe_2/widgets/cards.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -14,21 +16,21 @@ class HomePage extends StatelessWidget {
         _TopicsWidget(),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 24),
-          child: Text(
-            'Body',
-            style: TextStyle(fontWeight: FontWeight.bold)
-          ),
+          child: Text('Body', style: TextStyle(fontWeight: FontWeight.bold)),
         ),
       ],
     );
   }
 }
 
-class _TopicsWidget extends StatelessWidget {
+class _TopicsWidget extends ConsumerWidget {
   const _TopicsWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(homeProvider);
+    print(state.topics ?? 'no topics');
+
     /// state
     final topics = [
       TopicsCard(

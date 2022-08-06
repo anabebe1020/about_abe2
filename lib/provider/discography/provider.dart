@@ -1,7 +1,10 @@
 import 'package:about_abe_2/api/firebase.dart';
-import 'package:about_abe_2/contents/discography/model.dart';
+import 'package:about_abe_2/models/discography/model.dart';
 import 'package:anabebe_packages/anabebe_packages.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'provider.freezed.dart';
 
 final _logger = Logger();
 
@@ -24,4 +27,13 @@ class _DiscographyChangeNotifier extends StateNotifier<List<DiscographyModel>> {
     final discography = ref.watch(discographiesStreamProvider).value;
     state = discography ?? [];
   }
+}
+
+@freezed
+class DiscographyState with _$DiscographyState {
+  const factory DiscographyState({
+    @Default(false) bool isLoading,
+    List<DiscographyModel>? discography,
+    String? errorMessage,
+  }) = _DiscographyState;
 }

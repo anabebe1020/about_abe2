@@ -1,5 +1,5 @@
 import 'package:about_abe_2/constants/firebase.dart';
-import 'package:about_abe_2/contents/discography/model.dart';
+import 'package:about_abe_2/models/discography/model.dart';
 import 'package:anabebe_packages/anabebe_packages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -1,5 +1,5 @@
-import 'package:about_abe_2/contents/discography/model.dart';
-import 'package:about_abe_2/contents/discography/provider.dart';
+import 'package:about_abe_2/models/discography/model.dart';
+import 'package:about_abe_2/provider/discography/provider.dart';
 import 'package:about_abe_2/utils/string.dart';
 import 'package:about_abe_2/widgets/empty_page.dart';
 import 'package:about_abe_2/widgets/headline.dart';

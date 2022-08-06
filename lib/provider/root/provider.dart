@@ -1,4 +1,4 @@
-import 'package:about_abe_2/contents/page_model.dart';
+import 'package:about_abe_2/pages/page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

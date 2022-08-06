@@ -1,8 +1,9 @@
-import 'package:about_abe_2/contents/account/page.dart';
-import 'package:about_abe_2/contents/discography/page.dart';
-import 'package:about_abe_2/contents/discography/provider.dart';
-import 'package:about_abe_2/contents/home/page.dart';
-import 'package:about_abe_2/contents/root/provider.dart';
+import 'package:about_abe_2/pages/account/page.dart';
+import 'package:about_abe_2/pages/discography/page.dart';
+import 'package:about_abe_2/pages/home/page.dart';
+import 'package:about_abe_2/provider/discography/provider.dart';
+import 'package:about_abe_2/provider/home/provider.dart';
+import 'package:about_abe_2/provider/root/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,6 +18,7 @@ class Root extends ConsumerWidget {
     final pagesInfo = ref.read(pagesInfoProvider);
     final index = ref.watch(pageChangeProvider);
     final notifier = ref.read(pageChangeProvider.notifier);
+    ref.read(homeProvider.notifier).getTopics();
     ref.read(discographyChangeProvider.notifier).get();
 
     // state
