@@ -1,12 +1,9 @@
 import 'package:about_abe_2/models/home/topic.dart';
 import 'package:about_abe_2/provider/topic_items/provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'provider.freezed.dart';
-
-final _qiitaToken = dotenv.get('QIITA_AUTH_TOKEN');
 
 final homeProvider = StateNotifierProvider<_HomeNotifier, HomeState>(
   (ref) => _HomeNotifier(ref),

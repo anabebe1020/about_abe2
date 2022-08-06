@@ -1,6 +1,9 @@
 import 'package:about_abe_2/pages/page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'provider.freezed.dart';
 
 final _pagesInfo = [
   PageModel(title: 'Home', icon: Icons.home),
@@ -9,16 +12,17 @@ final _pagesInfo = [
 ];
 final pagesInfoProvider = Provider((ref) => _pagesInfo);
 
-final pageChangeProvider = StateNotifierProvider<_PageChangeNotifier, int>(
+final pageChangeProvider =
+    StateNotifierProvider<_PageChangeNotifier, RootState>(
   (ref) => _PageChangeNotifier(),
 );
 
-class _PageChangeNotifier extends StateNotifier<int> {
-  _PageChangeNotifier() : super(0);
+class _PageChangeNotifier extends StateNotifier<RootState> {
+  _PageChangeNotifier() : super(const RootState());
 
-  void onPageChanged(int index) => state = index;
-  void nextPageChange() => state++;
-  void prevPageChange() => state--;
+  void onPageChanged(int index) => state.copyWith(currentPage: index);
+  void nextPageChange() => state.copyWith(currentPage: state.currentPage + 1);
+  void prevPageChange() => state.copyWith(currentPage: state.currentPage - 1);
 
   void onItemTapped(int index, PageController pageController) {
     // setting animation page.
@@ -28,4 +32,14 @@ class _PageChangeNotifier extends StateNotifier<int> {
       curve: Curves.ease,
     );
   }
+}
+
+@freezed
+class RootState with _$RootState {
+  const factory RootState({
+    @Default(false) bool isLoading,
+    @Default(false) bool isInitialized,
+    @Default(0) int currentPage,
+    String? errorMessage,
+  }) = _RootState;
 }

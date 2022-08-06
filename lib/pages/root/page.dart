@@ -16,7 +16,7 @@ class Root extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
     final pagesInfo = ref.read(pagesInfoProvider);
-    final index = ref.watch(pageChangeProvider);
+    final state = ref.watch(pageChangeProvider);
     final notifier = ref.read(pageChangeProvider.notifier);
     ref.read(homeProvider.notifier).getTopics();
     ref.read(discographyChangeProvider.notifier).get();
@@ -56,7 +56,7 @@ class Root extends ConsumerWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: barItems,
-        currentIndex: index,
+        currentIndex: state.currentPage,
         onTap: (index) => notifier.onItemTapped(index, _pageController),
       ),
     );
