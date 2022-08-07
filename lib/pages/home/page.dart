@@ -2,6 +2,7 @@ import 'package:about_abe_2/provider/home/provider.dart';
 import 'package:about_abe_2/widgets/cards.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,33 +30,31 @@ class _TopicsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(homeProvider);
-    print(state.topics ?? 'no topics');
-
-    /// state
-    final topics = [
-      TopicsCard(
-        prefixIcon: Image.asset('assets/icon_qiita.png', height: 60),
-        suffixArea: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('aaa', style: TextStyle(color: Colors.blueGrey)),
-            Text('bbb', style: TextStyle(color: Colors.blueGrey)),
-          ],
-        ),
-      ),
-      TopicsCard(
-        prefixIcon: Image.asset('assets/icon_qiita.png', height: 60),
-        suffixArea: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('aaa', style: TextStyle(color: Colors.blueGrey)),
-            Text('bbb', style: TextStyle(color: Colors.blueGrey)),
-          ],
-        ),
-      ),
-    ];
+    final topics = state.topics ?? [];
+    final cards = topics
+        .map((topic) => TopicsCard(
+              prefixIcon: Image.asset('assets/icon_qiita.png', height: 60),
+              suffixArea: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    topic.title,
+                    style:
+                        const TextStyle(fontSize: 18, color: Colors.blueGrey),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    topic.summary ?? '',
+                    style:
+                        const TextStyle(fontSize: 18, color: Colors.blueGrey),
+                  ),
+                ],
+              ),
+              onPressed: () => launchUrl(Uri.parse(topic.url)),
+            ))
+        .toList();
 
     /// render
     return Column(
@@ -72,11 +71,11 @@ class _TopicsWidget extends ConsumerWidget {
           height: 140,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: topics.length,
+            itemCount: cards.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: topics[index],
+                child: cards[index],
               );
             },
           ),

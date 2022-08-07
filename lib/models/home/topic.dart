@@ -13,13 +13,13 @@ class TopicModel {
     required this.createdAt,
   });
 
-  factory TopicModel.fromQiitaJson(Map<String, dynamic> json) {
+  factory TopicModel.fromQiitaJson(Map<String, dynamic> data) {
     return TopicModel(
       service: ServicePlatform.qiita,
-      title: 'Title A',
-      summary: '',
-      url: '',
-      createdAt: DateTime.now(),
+      title: data['title'],
+      summary: 'LGTM:${data['likes_count']}',
+      url: data['url'],
+      createdAt: DateTime.parse(data['created_at']),
     );
   }
 }

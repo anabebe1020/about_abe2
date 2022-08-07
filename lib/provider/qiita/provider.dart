@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:about_abe_2/api/http.dart';
 import 'package:about_abe_2/constants/sns.dart';
 import 'package:about_abe_2/models/home/topic.dart';
@@ -23,8 +25,31 @@ class _QiitaNotifier extends StateNotifier<QiitaState> {
       'content-type': 'application/json',
       'Authorization': 'Bearer $_qiitaToken',
     };
-    final json = await HttpClient().get(uri, headers);
+    final result = await HttpClient().get(uri, headers);
+    final json = jsonDecode(result);
     state = state.copyWith(user: QiitaUserModel.fromJson(json));
+  }
+
+  Future<void> getItems() async {
+    try {
+      final uri = Uri.parse(
+        '${SnsConst().qiitaApiUrl}/authenticated_user/items?page=1&per_page=15',
+      );
+      final headers = <String, String>{
+        'content-type': 'application/json',
+        'Authorization': 'Bearer $_qiitaToken',
+      };
+      final result = await HttpClient().get(uri, headers);
+      final jsonList = jsonDecode(result) as List;
+      List<TopicModel> items = [];
+      jsonList.map((json) {
+        items.add(TopicModel.fromQiitaJson(json));
+      }).toList();
+      state = state.copyWith(items: items);
+    } catch (error) {
+      //
+      print('error: ${error.toString()}');
+    }
   }
 }
 

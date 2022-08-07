@@ -22,17 +22,17 @@ class HttpClient {
   }
 
   /// Http GET
-  Future<Map<String, dynamic>> get(Uri uri, Map<String, String> headers) async {
+  Future<String> get(Uri uri, Map<String, String> headers) async {
     _logger.log('GET URI: ${uri.toString()}');
     if (headers.isEmpty) {
       headers['content-type'] = 'application/json';
     }
 
-    Map<String, dynamic> content = {};
+    String content = '';
     try {
       final resp = await http.get(uri, headers: headers);
       if (resp.statusCode == 200) {
-        content = json.decode(resp.body);
+        content = resp.body; //json.decode(resp.body);
       } else {
         throw Exception('Failed to post ${resp.statusCode}');
       }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:about_abe_2/api/http.dart';
 import 'package:about_abe_2/constants/sns.dart';
 import 'package:about_abe_2/models/github/user.dart';
@@ -21,7 +23,8 @@ class _GithubNotifier extends StateNotifier<GithubState> {
       final headers = <String, String>{
         'content-type': 'application/json',
       };
-      final json = await HttpClient().get(uri, headers);
+      final result = await HttpClient().get(uri, headers);
+      final json = jsonDecode(result);
       state = state.copyWith(user: GitHubModel.fromJson(json));
     } catch (e) {
       rethrow;

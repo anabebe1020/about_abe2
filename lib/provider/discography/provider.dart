@@ -24,8 +24,8 @@ class _DiscographyNotifier extends StateNotifier<DiscographyState> {
 
   Future<void> get() async {
     final discography = ref.watch(discographiesStreamProvider).value;
-    print('discography: $discography');
-    state = state.copyWith(discography: discography ?? []);
+    await Future.delayed(const Duration(milliseconds: 500));
+    state = state.copyWith(discography: discography);
   }
 }
 
