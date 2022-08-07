@@ -1,16 +1,25 @@
-import 'package:about_abe_2/models/github/repos.dart';
-import 'package:about_abe_2/models/github/user.dart';
-import 'package:about_abe_2/models/qiita/user.dart';
+class AccountHeaderModel {
+  final String? name;
+  final String? imageUrl;
 
-class MeModel {
-  final String name;
-  final GitHubModel? github;
-  final QiitaUserModel? qiita;
-  final List<GitHubRepoModel>? repos;
+  AccountHeaderModel({
+    this.name,
+    this.imageUrl,
+  });
+}
 
-  MeModel({required this.name, this.github, this.qiita, this.repos});
+class AccountInfoModel {
+  final String? company;
+  final String? location;
+  final String? link;
+  final String? github;
+  final String? twitter;
 
-  factory MeModel.init() {
-    return MeModel(name: '');
-  }
+  AccountInfoModel({
+    this.company,
+    this.location,
+    this.link,
+    this.github,
+    this.twitter,
+  });
 }

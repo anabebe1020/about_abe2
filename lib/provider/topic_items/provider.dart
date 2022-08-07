@@ -26,7 +26,7 @@ class _TopicItemsNotifier extends StateNotifier<TopicItemState> {
     try {
       final client = HttpClient();
       final uri = Uri.parse(
-        '${SnsConst().qiitaUrl}/authenticated_user/items?page=1&per_page=15',
+        '${SnsConst().qiitaApiUrl}/authenticated_user/items?page=1&per_page=15',
       );
       final headers = <String, String>{
         'content-type': 'application/json',

@@ -1,6 +1,8 @@
+import 'package:about_abe_2/models/account/model.dart';
+import 'package:about_abe_2/provider/account/provider.dart';
 import 'package:about_abe_2/widgets/face_circle.dart';
 import 'package:about_abe_2/widgets/headline.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AccountPage extends ConsumerWidget {
@@ -8,24 +10,26 @@ class AccountPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      children: const [
-        _MeWidget(name: 'Ryousuke Abe'),
-        _Introduction(),
-        _Information(),
-      ],
-    );
+    final state = ref.watch(accountProvider);
+
+    return state.isLoading
+        ? const Center(child: CupertinoActivityIndicator())
+        : ListView(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            children: [
+              _MeWidget(header: state.header),
+              _Introduction(introduction: state.introduction),
+              _Information(information: state.information),
+            ],
+          );
   }
 }
 
 class _MeWidget extends StatelessWidget {
-  final String? imageUrl;
-  final String name;
-  const _MeWidget({Key? key, this.imageUrl, required this.name})
-      : super(key: key);
+  final AccountHeaderModel? header;
+  const _MeWidget({Key? key, this.header}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +39,12 @@ class _MeWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: FaceCircle(imageUrl: imageUrl),
+            child: FaceCircle(imageUrl: header?.imageUrl ?? ''),
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text(name),
+              child: Text(header?.name ?? ''),
             ),
           ),
         ],
@@ -50,7 +54,8 @@ class _MeWidget extends StatelessWidget {
 }
 
 class _Introduction extends StatelessWidget {
-  const _Introduction({Key? key}) : super(key: key);
+  final String? introduction;
+  const _Introduction({Key? key, this.introduction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +63,12 @@ class _Introduction extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Headline(text: 'Introduction'),
+        children: [
+          const Headline(text: 'Introduction'),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-            child: Text('sample introduction text.',
-                style: TextStyle(fontSize: 18)),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child:
+                Text(introduction ?? '', style: const TextStyle(fontSize: 18)),
           ),
         ],
       ),
@@ -72,7 +77,8 @@ class _Introduction extends StatelessWidget {
 }
 
 class _Information extends StatelessWidget {
-  const _Information({Key? key}) : super(key: key);
+  final AccountInfoModel? information;
+  const _Information({Key? key, this.information}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

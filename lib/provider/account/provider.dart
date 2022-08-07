@@ -1,30 +1,46 @@
-import 'package:about_abe_2/api/http.dart';
-import 'package:about_abe_2/constants/sns.dart';
+import 'package:about_abe_2/models/account/model.dart';
 import 'package:about_abe_2/models/github/repos.dart';
-import 'package:about_abe_2/models/github/user.dart';
-import 'package:about_abe_2/models/qiita/user.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:about_abe_2/provider/github/provider.dart';
+import 'package:about_abe_2/provider/qiita/provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'provider.freezed.dart';
 
-final _qiitaToken = dotenv.get('QIITA_AUTH_TOKEN');
-
 final accountProvider = StateNotifierProvider<_AccountNotifier, AccountState>(
-  (ref) => _AccountNotifier(),
+  (ref) => _AccountNotifier(ref),
 );
 
 class _AccountNotifier extends StateNotifier<AccountState> {
-  _AccountNotifier() : super(const AccountState());
+  StateNotifierProviderRef<_AccountNotifier, AccountState> ref;
+  _AccountNotifier(this.ref) : super(const AccountState());
 
-  Future<void> getQiita() async {
-    final uri = Uri.parse('${SnsConst().qiitaUrl}/users/anabebe');
-    final headers = <String, String>{
-      'content-type': 'application/json',
-      'Authorization': 'Bearer $_qiitaToken',
-    };
-    final result = await HttpClient().get(uri, headers);
+  Future<void> getUserInfo() async {
+    try {
+      state = state.copyWith(isLoading: true);
+      await ref.read(qiitaProvider.notifier).getUser();
+      await ref.read(githubProvider.notifier).getUser();
+      //
+      final qiita = ref.watch(qiitaProvider);
+      final github = ref.watch(githubProvider);
+      state = state.copyWith(
+        header: AccountHeaderModel(
+          name: github.user?.name,
+          imageUrl: qiita.user?.iconUrl ?? github.user?.iconUrl,
+        ),
+        introduction: github.user?.description,
+        information: AccountInfoModel(
+          company: github.user?.company,
+          location: github.user?.location,
+          github: github.user?.name,
+          twitter: github.user?.twitter,
+        ),
+      );
+    } catch (e) {
+      rethrow;
+    } finally {
+      state = state.copyWith(isLoading: false);
+    }
   }
 }
 
@@ -32,8 +48,9 @@ class _AccountNotifier extends StateNotifier<AccountState> {
 class AccountState with _$AccountState {
   const factory AccountState({
     @Default(false) bool isLoading,
-    QiitaUserModel? qiita,
-    GitHubModel? github,
+    AccountHeaderModel? header,
+    String? introduction,
+    AccountInfoModel? information,
     List<GitHubRepoModel>? repos,
     String? errorMessage,
   }) = _AccountState;

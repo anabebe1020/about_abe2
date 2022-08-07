@@ -18,7 +18,9 @@ class _RootState extends ConsumerState<Root> {
 
   @override
   void initState() {
-    ref.read(rootProvider.notifier).init();
+    Future(() async {
+      await ref.read(rootProvider.notifier).init();
+    });
     super.initState();
   }
 

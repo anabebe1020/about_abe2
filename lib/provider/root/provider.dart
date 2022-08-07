@@ -1,3 +1,4 @@
+import 'package:about_abe_2/provider/account/provider.dart';
 import 'package:about_abe_2/provider/discography/provider.dart';
 import 'package:about_abe_2/provider/home/provider.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _RootNotifier extends StateNotifier<RootState> {
       state.copyWith(isLoading: true);
       //
       await ref.read(homeProvider.notifier).getTopics();
+      await ref.read(accountProvider.notifier).getUserInfo();
       await ref.read(discographyProvider.notifier).setup();
       await ref.read(discographyProvider.notifier).get();
       state.copyWith(isInitialized: true);

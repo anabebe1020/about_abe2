@@ -17,8 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AccountState {
   bool get isLoading => throw _privateConstructorUsedError;
-  QiitaUserModel? get qiita => throw _privateConstructorUsedError;
-  GitHubModel? get github => throw _privateConstructorUsedError;
+  AccountHeaderModel? get header => throw _privateConstructorUsedError;
+  String? get introduction => throw _privateConstructorUsedError;
+  AccountInfoModel? get information => throw _privateConstructorUsedError;
   List<GitHubRepoModel>? get repos => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
@@ -34,8 +35,9 @@ abstract class $AccountStateCopyWith<$Res> {
       _$AccountStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      QiitaUserModel? qiita,
-      GitHubModel? github,
+      AccountHeaderModel? header,
+      String? introduction,
+      AccountInfoModel? information,
       List<GitHubRepoModel>? repos,
       String? errorMessage});
 }
@@ -51,8 +53,9 @@ class _$AccountStateCopyWithImpl<$Res> implements $AccountStateCopyWith<$Res> {
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? qiita = freezed,
-    Object? github = freezed,
+    Object? header = freezed,
+    Object? introduction = freezed,
+    Object? information = freezed,
     Object? repos = freezed,
     Object? errorMessage = freezed,
   }) {
@@ -61,14 +64,18 @@ class _$AccountStateCopyWithImpl<$Res> implements $AccountStateCopyWith<$Res> {
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      qiita: qiita == freezed
-          ? _value.qiita
-          : qiita // ignore: cast_nullable_to_non_nullable
-              as QiitaUserModel?,
-      github: github == freezed
-          ? _value.github
-          : github // ignore: cast_nullable_to_non_nullable
-              as GitHubModel?,
+      header: header == freezed
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as AccountHeaderModel?,
+      introduction: introduction == freezed
+          ? _value.introduction
+          : introduction // ignore: cast_nullable_to_non_nullable
+              as String?,
+      information: information == freezed
+          ? _value.information
+          : information // ignore: cast_nullable_to_non_nullable
+              as AccountInfoModel?,
       repos: repos == freezed
           ? _value.repos
           : repos // ignore: cast_nullable_to_non_nullable
@@ -90,8 +97,9 @@ abstract class _$$_AccountStateCopyWith<$Res>
   @override
   $Res call(
       {bool isLoading,
-      QiitaUserModel? qiita,
-      GitHubModel? github,
+      AccountHeaderModel? header,
+      String? introduction,
+      AccountInfoModel? information,
       List<GitHubRepoModel>? repos,
       String? errorMessage});
 }
@@ -110,8 +118,9 @@ class __$$_AccountStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = freezed,
-    Object? qiita = freezed,
-    Object? github = freezed,
+    Object? header = freezed,
+    Object? introduction = freezed,
+    Object? information = freezed,
     Object? repos = freezed,
     Object? errorMessage = freezed,
   }) {
@@ -120,14 +129,18 @@ class __$$_AccountStateCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      qiita: qiita == freezed
-          ? _value.qiita
-          : qiita // ignore: cast_nullable_to_non_nullable
-              as QiitaUserModel?,
-      github: github == freezed
-          ? _value.github
-          : github // ignore: cast_nullable_to_non_nullable
-              as GitHubModel?,
+      header: header == freezed
+          ? _value.header
+          : header // ignore: cast_nullable_to_non_nullable
+              as AccountHeaderModel?,
+      introduction: introduction == freezed
+          ? _value.introduction
+          : introduction // ignore: cast_nullable_to_non_nullable
+              as String?,
+      information: information == freezed
+          ? _value.information
+          : information // ignore: cast_nullable_to_non_nullable
+              as AccountInfoModel?,
       repos: repos == freezed
           ? _value._repos
           : repos // ignore: cast_nullable_to_non_nullable
@@ -145,8 +158,9 @@ class __$$_AccountStateCopyWithImpl<$Res>
 class _$_AccountState implements _AccountState {
   const _$_AccountState(
       {this.isLoading = false,
-      this.qiita,
-      this.github,
+      this.header,
+      this.introduction,
+      this.information,
       final List<GitHubRepoModel>? repos,
       this.errorMessage})
       : _repos = repos;
@@ -155,9 +169,11 @@ class _$_AccountState implements _AccountState {
   @JsonKey()
   final bool isLoading;
   @override
-  final QiitaUserModel? qiita;
+  final AccountHeaderModel? header;
   @override
-  final GitHubModel? github;
+  final String? introduction;
+  @override
+  final AccountInfoModel? information;
   final List<GitHubRepoModel>? _repos;
   @override
   List<GitHubRepoModel>? get repos {
@@ -172,7 +188,7 @@ class _$_AccountState implements _AccountState {
 
   @override
   String toString() {
-    return 'AccountState(isLoading: $isLoading, qiita: $qiita, github: $github, repos: $repos, errorMessage: $errorMessage)';
+    return 'AccountState(isLoading: $isLoading, header: $header, introduction: $introduction, information: $information, repos: $repos, errorMessage: $errorMessage)';
   }
 
   @override
@@ -181,8 +197,11 @@ class _$_AccountState implements _AccountState {
         (other.runtimeType == runtimeType &&
             other is _$_AccountState &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
-            const DeepCollectionEquality().equals(other.qiita, qiita) &&
-            const DeepCollectionEquality().equals(other.github, github) &&
+            const DeepCollectionEquality().equals(other.header, header) &&
+            const DeepCollectionEquality()
+                .equals(other.introduction, introduction) &&
+            const DeepCollectionEquality()
+                .equals(other.information, information) &&
             const DeepCollectionEquality().equals(other._repos, _repos) &&
             const DeepCollectionEquality()
                 .equals(other.errorMessage, errorMessage));
@@ -192,8 +211,9 @@ class _$_AccountState implements _AccountState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
-      const DeepCollectionEquality().hash(qiita),
-      const DeepCollectionEquality().hash(github),
+      const DeepCollectionEquality().hash(header),
+      const DeepCollectionEquality().hash(introduction),
+      const DeepCollectionEquality().hash(information),
       const DeepCollectionEquality().hash(_repos),
       const DeepCollectionEquality().hash(errorMessage));
 
@@ -206,17 +226,20 @@ class _$_AccountState implements _AccountState {
 abstract class _AccountState implements AccountState {
   const factory _AccountState(
       {final bool isLoading,
-      final QiitaUserModel? qiita,
-      final GitHubModel? github,
+      final AccountHeaderModel? header,
+      final String? introduction,
+      final AccountInfoModel? information,
       final List<GitHubRepoModel>? repos,
       final String? errorMessage}) = _$_AccountState;
 
   @override
   bool get isLoading;
   @override
-  QiitaUserModel? get qiita;
+  AccountHeaderModel? get header;
   @override
-  GitHubModel? get github;
+  String? get introduction;
+  @override
+  AccountInfoModel? get information;
   @override
   List<GitHubRepoModel>? get repos;
   @override

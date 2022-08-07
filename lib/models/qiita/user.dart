@@ -1,5 +1,6 @@
 class QiitaUserModel {
   final String userId;
+  final String name;
   final String? iconUrl;
   final String description;
   final int followees;
@@ -8,6 +9,7 @@ class QiitaUserModel {
 
   QiitaUserModel({
     required this.userId,
+    required this.name,
     this.iconUrl,
     required this.description,
     required this.followees,
@@ -15,14 +17,15 @@ class QiitaUserModel {
     required this.items,
   });
 
-  factory QiitaUserModel.fromJson(Map<String, dynamic> json) {
+  factory QiitaUserModel.fromJson(Map<String, dynamic> data) {
     return QiitaUserModel(
-      userId: "",
-      iconUrl: "",
-      description: "",
-      followees: 0,
-      followers: 0,
-      items: 0,
+      userId: data['id'].toString(),
+      name: data['name'].toString(),
+      iconUrl: data['profile_image_url'],
+      description: data['description'],
+      followees: data['followees_count'] as int,
+      followers: data['followers_count'] as int,
+      items: data['items_count'] as int,
     );
   }
 }

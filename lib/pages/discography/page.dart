@@ -3,6 +3,7 @@ import 'package:about_abe_2/provider/discography/provider.dart';
 import 'package:about_abe_2/utils/string.dart';
 import 'package:about_abe_2/widgets/empty_page.dart';
 import 'package:about_abe_2/widgets/headline.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,20 +15,23 @@ class DiscographyPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(discographyProvider);
-    final discography = state.discography;
+    final discography = state.discography ?? [];
 
-    return discography != null && discography.isNotEmpty
-        ? ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            itemCount: discography.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                child: _DiscographyTileList(company: discography[index]),
-              );
-            },
-          )
-        : const EmptyPage();
+    return state.isLoading
+        ? const Center(child: CupertinoActivityIndicator())
+        : discography.isNotEmpty
+            ? ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                itemCount: discography.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: _DiscographyTileList(company: discography[index]),
+                  );
+                },
+              )
+            : const EmptyPage();
   }
 }
 

@@ -18,13 +18,13 @@ class _QiitaNotifier extends StateNotifier<QiitaState> {
   _QiitaNotifier() : super(const QiitaState());
 
   Future<void> getUser() async {
-    final uri = Uri.parse('${SnsConst().qiitaUrl}/users/anabebe');
+    final uri = Uri.parse('${SnsConst().qiitaApiUrl}/users/anabebe');
     final headers = <String, String>{
       'content-type': 'application/json',
       'Authorization': 'Bearer $_qiitaToken',
     };
     final json = await HttpClient().get(uri, headers);
-    print('qiita getUser: $json');
+    state = state.copyWith(user: QiitaUserModel.fromJson(json));
   }
 }
 
