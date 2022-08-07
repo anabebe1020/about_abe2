@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'About abe',
       theme: MyTheme.dark,
-      home: Root(),
+      home: const Root(),
     );
   }
 }

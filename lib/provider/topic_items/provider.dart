@@ -1,7 +1,7 @@
 import 'package:about_abe_2/api/http.dart';
 import 'package:about_abe_2/constants/sns.dart';
 import 'package:about_abe_2/models/home/topic.dart';
-import 'package:about_abe_2/models/qiita_model.dart';
+import 'package:about_abe_2/models/qiita/items.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

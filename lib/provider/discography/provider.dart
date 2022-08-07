@@ -8,24 +8,24 @@ part 'provider.freezed.dart';
 
 final _logger = Logger();
 
-final discographyChangeProvider =
-    StateNotifierProvider<_DiscographyChangeNotifier, List<DiscographyModel>>(
-  (ref) => _DiscographyChangeNotifier(ref: ref),
+final discographyProvider =
+    StateNotifierProvider<_DiscographyNotifier, DiscographyState>(
+  (ref) => _DiscographyNotifier(ref: ref),
 );
 
-class _DiscographyChangeNotifier extends StateNotifier<List<DiscographyModel>> {
-  final StateNotifierProviderRef<_DiscographyChangeNotifier,
-      List<DiscographyModel>> ref;
-  _DiscographyChangeNotifier({required this.ref}) : super([]);
+class _DiscographyNotifier extends StateNotifier<DiscographyState> {
+  final StateNotifierProviderRef<_DiscographyNotifier, DiscographyState> ref;
+  _DiscographyNotifier({required this.ref}) : super(const DiscographyState());
 
-  void setup() {
+  Future<void> setup() async {
     _logger.setup('DISCOGRAPHY');
     FirebaseAPI().init();
   }
 
   Future<void> get() async {
     final discography = ref.watch(discographiesStreamProvider).value;
-    state = discography ?? [];
+    print('discography: $discography');
+    state = state.copyWith(discography: discography ?? []);
   }
 }
 

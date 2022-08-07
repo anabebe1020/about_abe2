@@ -13,9 +13,10 @@ class DiscographyPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final discography = ref.watch(discographyChangeProvider);
+    final state = ref.watch(discographyProvider);
+    final discography = state.discography;
 
-    return discography.isNotEmpty
+    return discography != null && discography.isNotEmpty
         ? ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             itemCount: discography.length,

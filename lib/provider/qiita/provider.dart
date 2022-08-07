@@ -1,7 +1,6 @@
 import 'package:about_abe_2/api/http.dart';
 import 'package:about_abe_2/constants/sns.dart';
-import 'package:about_abe_2/models/github/repos.dart';
-import 'package:about_abe_2/models/github/user.dart';
+import 'package:about_abe_2/models/home/topic.dart';
 import 'package:about_abe_2/models/qiita/user.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,30 +10,30 @@ part 'provider.freezed.dart';
 
 final _qiitaToken = dotenv.get('QIITA_AUTH_TOKEN');
 
-final accountProvider = StateNotifierProvider<_AccountNotifier, AccountState>(
-  (ref) => _AccountNotifier(),
+final qiitaProvider = StateNotifierProvider<_QiitaNotifier, QiitaState>(
+  (ref) => _QiitaNotifier(),
 );
 
-class _AccountNotifier extends StateNotifier<AccountState> {
-  _AccountNotifier() : super(const AccountState());
+class _QiitaNotifier extends StateNotifier<QiitaState> {
+  _QiitaNotifier() : super(const QiitaState());
 
-  Future<void> getQiita() async {
+  Future<void> getUser() async {
     final uri = Uri.parse('${SnsConst().qiitaUrl}/users/anabebe');
     final headers = <String, String>{
       'content-type': 'application/json',
       'Authorization': 'Bearer $_qiitaToken',
     };
-    final result = await HttpClient().get(uri, headers);
+    final json = await HttpClient().get(uri, headers);
+    print('qiita getUser: $json');
   }
 }
 
 @freezed
-class AccountState with _$AccountState {
-  const factory AccountState({
+class QiitaState with _$QiitaState {
+  const factory QiitaState({
     @Default(false) bool isLoading,
-    QiitaUserModel? qiita,
-    GitHubModel? github,
-    List<GitHubRepoModel>? repos,
+    QiitaUserModel? user,
+    List<TopicModel>? items,
     String? errorMessage,
-  }) = _AccountState;
+  }) = _QiitaState;
 }

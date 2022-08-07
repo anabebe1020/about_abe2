@@ -1,28 +1,39 @@
-import 'package:about_abe_2/pages/page_model.dart';
+import 'package:about_abe_2/provider/discography/provider.dart';
+import 'package:about_abe_2/provider/home/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'provider.freezed.dart';
 
-final _pagesInfo = [
-  PageModel(title: 'Home', icon: Icons.home),
-  PageModel(title: 'Account', icon: Icons.account_circle),
-  PageModel(title: 'Discography', icon: Icons.history),
-];
-final pagesInfoProvider = Provider((ref) => _pagesInfo);
-
-final pageChangeProvider =
-    StateNotifierProvider<_PageChangeNotifier, RootState>(
-  (ref) => _PageChangeNotifier(),
+final rootProvider = StateNotifierProvider<_RootNotifier, RootState>(
+  (ref) => _RootNotifier(ref),
 );
 
-class _PageChangeNotifier extends StateNotifier<RootState> {
-  _PageChangeNotifier() : super(const RootState());
+class _RootNotifier extends StateNotifier<RootState> {
+  StateNotifierProviderRef<_RootNotifier, RootState> ref;
+  _RootNotifier(this.ref) : super(const RootState());
 
-  void onPageChanged(int index) => state.copyWith(currentPage: index);
-  void nextPageChange() => state.copyWith(currentPage: state.currentPage + 1);
-  void prevPageChange() => state.copyWith(currentPage: state.currentPage - 1);
+  Future<void> init() async {
+    try {
+      state.copyWith(isLoading: true);
+      //
+      await ref.read(homeProvider.notifier).getTopics();
+      await ref.read(discographyProvider.notifier).setup();
+      await ref.read(discographyProvider.notifier).get();
+      state.copyWith(isInitialized: true);
+    } catch (e) {
+      state.copyWith(isInitialized: false);
+    } finally {
+      state.copyWith(isLoading: false);
+    }
+  }
+
+  void onPageChanged(int index) => state = state.copyWith(currentPage: index);
+  void nextPageChange() =>
+      state = state.copyWith(currentPage: state.currentPage + 1);
+  void prevPageChange() =>
+      state = state.copyWith(currentPage: state.currentPage - 1);
 
   void onItemTapped(int index, PageController pageController) {
     // setting animation page.

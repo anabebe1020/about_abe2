@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AccountState {
   bool get isLoading => throw _privateConstructorUsedError;
-  QiitaModel? get qiita => throw _privateConstructorUsedError;
+  QiitaUserModel? get qiita => throw _privateConstructorUsedError;
   GitHubModel? get github => throw _privateConstructorUsedError;
   List<GitHubRepoModel>? get repos => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ abstract class $AccountStateCopyWith<$Res> {
       _$AccountStateCopyWithImpl<$Res>;
   $Res call(
       {bool isLoading,
-      QiitaModel? qiita,
+      QiitaUserModel? qiita,
       GitHubModel? github,
       List<GitHubRepoModel>? repos,
       String? errorMessage});
@@ -64,7 +64,7 @@ class _$AccountStateCopyWithImpl<$Res> implements $AccountStateCopyWith<$Res> {
       qiita: qiita == freezed
           ? _value.qiita
           : qiita // ignore: cast_nullable_to_non_nullable
-              as QiitaModel?,
+              as QiitaUserModel?,
       github: github == freezed
           ? _value.github
           : github // ignore: cast_nullable_to_non_nullable
@@ -90,7 +90,7 @@ abstract class _$$_AccountStateCopyWith<$Res>
   @override
   $Res call(
       {bool isLoading,
-      QiitaModel? qiita,
+      QiitaUserModel? qiita,
       GitHubModel? github,
       List<GitHubRepoModel>? repos,
       String? errorMessage});
@@ -123,7 +123,7 @@ class __$$_AccountStateCopyWithImpl<$Res>
       qiita: qiita == freezed
           ? _value.qiita
           : qiita // ignore: cast_nullable_to_non_nullable
-              as QiitaModel?,
+              as QiitaUserModel?,
       github: github == freezed
           ? _value.github
           : github // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ class _$_AccountState implements _AccountState {
   @JsonKey()
   final bool isLoading;
   @override
-  final QiitaModel? qiita;
+  final QiitaUserModel? qiita;
   @override
   final GitHubModel? github;
   final List<GitHubRepoModel>? _repos;
@@ -206,7 +206,7 @@ class _$_AccountState implements _AccountState {
 abstract class _AccountState implements AccountState {
   const factory _AccountState(
       {final bool isLoading,
-      final QiitaModel? qiita,
+      final QiitaUserModel? qiita,
       final GitHubModel? github,
       final List<GitHubRepoModel>? repos,
       final String? errorMessage}) = _$_AccountState;
@@ -214,7 +214,7 @@ abstract class _AccountState implements AccountState {
   @override
   bool get isLoading;
   @override
-  QiitaModel? get qiita;
+  QiitaUserModel? get qiita;
   @override
   GitHubModel? get github;
   @override
