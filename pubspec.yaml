@@ -16,9 +16,9 @@ dependencies:
       url: https://github.com/anabebe1020/anabebe_packages.git
       ref: master
 
-  cloud_firestore: ^3.3.0
+  cloud_firestore: ^3.4.3
   cupertino_icons: ^1.0.2
-  firebase_core: ^1.19.2
+  firebase_core: ^1.20.0
   flutter_riverpod: ^1.0.4
   flutter_dotenv: ^5.0.2
   freezed_annotation: ^2.1.0
