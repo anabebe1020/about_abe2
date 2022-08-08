@@ -18,21 +18,23 @@ class _AccountNotifier extends StateNotifier<AccountState> {
   Future<void> getUserInfo() async {
     try {
       state = state.copyWith(isLoading: true);
+      // get
       await ref.read(qiitaProvider.notifier).getUser();
       await ref.read(githubProvider.notifier).getUser();
-      //
       final qiita = ref.watch(qiitaProvider);
       final github = ref.watch(githubProvider);
+      // set
       state = state.copyWith(
         header: AccountHeaderModel(
           name: github.user?.name,
-          imageUrl: qiita.user?.iconUrl ?? github.user?.iconUrl,
+          imageUrl: github.user?.iconUrl ?? qiita.user?.iconUrl,
         ),
         introduction: github.user?.description,
         information: AccountInfoModel(
           company: github.user?.company,
           location: github.user?.location,
-          github: github.user?.name,
+          link: github.user?.link,
+          github: github.user?.userId,
           twitter: github.user?.twitter,
         ),
       );

@@ -18,13 +18,15 @@ class _GithubNotifier extends StateNotifier<GithubState> {
   Future<void> getUser() async {
     try {
       state = state.copyWith(isLoading: true);
-      //
-      final uri = Uri.parse('${SnsConst().githubApiUrl}/users/anabebe');
+      // get
+      final uri = Uri.parse(
+          '${SnsConst().githubApiUrl}/users/${SnsConst().githubUserName}');
       final headers = <String, String>{
         'content-type': 'application/json',
       };
       final result = await HttpClient().get(uri, headers);
       final json = jsonDecode(result);
+      // set
       state = state.copyWith(user: GitHubModel.fromJson(json));
     } catch (e) {
       rethrow;

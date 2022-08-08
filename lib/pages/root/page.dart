@@ -58,6 +58,7 @@ class _RootState extends ConsumerState<Root> {
               ],
             ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blueGrey,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
