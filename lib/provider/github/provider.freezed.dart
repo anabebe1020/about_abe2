@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GithubState {
   bool get isLoading => throw _privateConstructorUsedError;
   GitHubModel? get user => throw _privateConstructorUsedError;
+  List<GitHubRepoModel>? get repos => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,11 @@ abstract class $GithubStateCopyWith<$Res> {
   factory $GithubStateCopyWith(
           GithubState value, $Res Function(GithubState) then) =
       _$GithubStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, GitHubModel? user, String? errorMessage});
+  $Res call(
+      {bool isLoading,
+      GitHubModel? user,
+      List<GitHubRepoModel>? repos,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -45,6 +50,7 @@ class _$GithubStateCopyWithImpl<$Res> implements $GithubStateCopyWith<$Res> {
   $Res call({
     Object? isLoading = freezed,
     Object? user = freezed,
+    Object? repos = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
@@ -56,6 +62,10 @@ class _$GithubStateCopyWithImpl<$Res> implements $GithubStateCopyWith<$Res> {
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as GitHubModel?,
+      repos: repos == freezed
+          ? _value.repos
+          : repos // ignore: cast_nullable_to_non_nullable
+              as List<GitHubRepoModel>?,
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -71,7 +81,11 @@ abstract class _$$_GithubStateCopyWith<$Res>
           _$_GithubState value, $Res Function(_$_GithubState) then) =
       __$$_GithubStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, GitHubModel? user, String? errorMessage});
+  $Res call(
+      {bool isLoading,
+      GitHubModel? user,
+      List<GitHubRepoModel>? repos,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -88,6 +102,7 @@ class __$$_GithubStateCopyWithImpl<$Res> extends _$GithubStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? user = freezed,
+    Object? repos = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_$_GithubState(
@@ -99,6 +114,10 @@ class __$$_GithubStateCopyWithImpl<$Res> extends _$GithubStateCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as GitHubModel?,
+      repos: repos == freezed
+          ? _value._repos
+          : repos // ignore: cast_nullable_to_non_nullable
+              as List<GitHubRepoModel>?,
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -110,19 +129,33 @@ class __$$_GithubStateCopyWithImpl<$Res> extends _$GithubStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GithubState implements _GithubState {
-  const _$_GithubState({this.isLoading = false, this.user, this.errorMessage});
+  const _$_GithubState(
+      {this.isLoading = false,
+      this.user,
+      final List<GitHubRepoModel>? repos,
+      this.errorMessage})
+      : _repos = repos;
 
   @override
   @JsonKey()
   final bool isLoading;
   @override
   final GitHubModel? user;
+  final List<GitHubRepoModel>? _repos;
+  @override
+  List<GitHubRepoModel>? get repos {
+    final value = _repos;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? errorMessage;
 
   @override
   String toString() {
-    return 'GithubState(isLoading: $isLoading, user: $user, errorMessage: $errorMessage)';
+    return 'GithubState(isLoading: $isLoading, user: $user, repos: $repos, errorMessage: $errorMessage)';
   }
 
   @override
@@ -132,6 +165,7 @@ class _$_GithubState implements _GithubState {
             other is _$_GithubState &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.user, user) &&
+            const DeepCollectionEquality().equals(other._repos, _repos) &&
             const DeepCollectionEquality()
                 .equals(other.errorMessage, errorMessage));
   }
@@ -141,6 +175,7 @@ class _$_GithubState implements _GithubState {
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(user),
+      const DeepCollectionEquality().hash(_repos),
       const DeepCollectionEquality().hash(errorMessage));
 
   @JsonKey(ignore: true)
@@ -153,12 +188,15 @@ abstract class _GithubState implements GithubState {
   const factory _GithubState(
       {final bool isLoading,
       final GitHubModel? user,
+      final List<GitHubRepoModel>? repos,
       final String? errorMessage}) = _$_GithubState;
 
   @override
   bool get isLoading;
   @override
   GitHubModel? get user;
+  @override
+  List<GitHubRepoModel>? get repos;
   @override
   String? get errorMessage;
   @override

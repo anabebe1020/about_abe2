@@ -21,6 +21,7 @@ class _AccountNotifier extends StateNotifier<AccountState> {
       // get
       await ref.read(qiitaProvider.notifier).getUser();
       await ref.read(githubProvider.notifier).getUser();
+      await ref.read(githubProvider.notifier).getRepos();
       final qiita = ref.watch(qiitaProvider);
       final github = ref.watch(githubProvider);
       // set
@@ -37,6 +38,7 @@ class _AccountNotifier extends StateNotifier<AccountState> {
           github: github.user?.userId,
           twitter: github.user?.twitter,
         ),
+        repos: github.repos,
       );
     } catch (e) {
       rethrow;
