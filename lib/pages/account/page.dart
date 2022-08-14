@@ -88,6 +88,13 @@ class _Information extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final githubUrl = information?.github != null
+        ? '${SnsConst().githubBaseUrl}/${information!.github}'
+        : null;
+    final twitterUrl = information?.twitter != null
+        ? '${SnsConst().twitterBaseUrl}/${information!.twitter}'
+        : null;
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
@@ -120,16 +127,12 @@ class _Information extends StatelessWidget {
                 InformationItem(
                   icon: SNSIcons.github,
                   text: information?.github ?? '',
-                  url: information?.github != null
-                      ? '${SnsConst().githubBaseUrl}/${information!.github}'
-                      : null,
+                  url: githubUrl,
                 ),
                 InformationItem(
                   icon: SNSIcons.twitter,
                   text: information?.twitter ?? '',
-                  url: information?.twitter != null
-                      ? '${SnsConst().twitterBaseUrl}/${information!.twitter}'
-                      : null,
+                  url: twitterUrl,
                 ),
               ],
             ),
