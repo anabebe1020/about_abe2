@@ -1,4 +1,4 @@
-import 'package:about_abe_2/provider/home/provider.dart';
+import 'package:about_abe_2/view_provider/home/provider.dart';
 import 'package:about_abe_2/widgets/cards.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

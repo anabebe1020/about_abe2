@@ -1,7 +1,7 @@
 import 'package:about_abe_2/pages/account/page.dart';
 import 'package:about_abe_2/pages/discography/page.dart';
 import 'package:about_abe_2/pages/home/page.dart';
-import 'package:about_abe_2/provider/root/provider.dart';
+import 'package:about_abe_2/view_provider/root/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,7 +1,6 @@
 import 'package:about_abe_2/models/discography/model.dart';
-import 'package:about_abe_2/provider/discography/provider.dart';
+import 'package:about_abe_2/provider/firebase/provider.dart';
 import 'package:about_abe_2/utils/string.dart';
-import 'package:about_abe_2/widgets/empty_page.dart';
 import 'package:about_abe_2/widgets/headline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,24 +13,24 @@ class DiscographyPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(discographyProvider);
-    final discography = state.discography ?? [];
+    final disco = ref.watch(discographiesStreamProvider);
 
-    return state.isLoading
-        ? const Center(child: CupertinoActivityIndicator())
-        : discography.isNotEmpty
-            ? ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                itemCount: discography.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    child: _DiscographyTileList(company: discography[index]),
-                  );
-                },
-              )
-            : const EmptyPage();
+    return disco.when(
+      data: (discography) {
+        return ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          itemCount: discography.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: _DiscographyTileList(company: discography[index]),
+            );
+          },
+        );
+      },
+      error: (error, stack) => Center(child: Text('Error: $error')),
+      loading: () => const Center(child: CupertinoActivityIndicator()),
+    );
   }
 }
 

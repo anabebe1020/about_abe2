@@ -1,6 +1,6 @@
-import 'package:about_abe_2/provider/account/provider.dart';
-import 'package:about_abe_2/provider/discography/provider.dart';
-import 'package:about_abe_2/provider/home/provider.dart';
+import 'package:about_abe_2/view_provider/account/provider.dart';
+import 'package:about_abe_2/view_provider/discography/provider.dart';
+import 'package:about_abe_2/view_provider/home/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

@@ -1,4 +1,3 @@
-import 'package:about_abe_2/api/firebase.dart';
 import 'package:about_abe_2/models/discography/model.dart';
 import 'package:anabebe_packages/anabebe_packages.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,13 +18,10 @@ class _DiscographyNotifier extends StateNotifier<DiscographyState> {
 
   Future<void> setup() async {
     _logger.setup('DISCOGRAPHY');
-    FirebaseAPI().init();
   }
 
   Future<void> get() async {
-    final discography = ref.watch(discographiesStreamProvider).value;
-    await Future.delayed(const Duration(milliseconds: 500));
-    state = state.copyWith(discography: discography);
+    //
   }
 }
 

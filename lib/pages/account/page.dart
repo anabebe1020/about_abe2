@@ -3,7 +3,7 @@ import 'package:about_abe_2/constants/sns.dart';
 import 'package:about_abe_2/models/account/model.dart';
 import 'package:about_abe_2/models/github/repos.dart';
 import 'package:about_abe_2/pages/account/info_item.dart';
-import 'package:about_abe_2/provider/account/provider.dart';
+import 'package:about_abe_2/view_provider/account/provider.dart';
 import 'package:about_abe_2/widgets/cards.dart';
 import 'package:about_abe_2/widgets/face_circle.dart';
 import 'package:about_abe_2/widgets/headline.dart';
