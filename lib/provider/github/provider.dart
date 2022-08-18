@@ -21,8 +21,8 @@ class _GithubNotifier extends StateNotifier<GithubState> {
 
   Future<void> getUser() async {
     try {
-      state = state.copyWith(isLoading: true);
       _logger.setup('GITHUB');
+      state = state.copyWith(isLoading: true);
       // get
       final uri = Uri.parse(
           '${SnsConst().githubApiUrl}/users/${SnsConst().githubUserName}');
@@ -42,6 +42,7 @@ class _GithubNotifier extends StateNotifier<GithubState> {
 
   Future<void> getRepos() async {
     try {
+      _logger.setup('GITHUB');
       state = state.copyWith(isLoading: true);
       // get
       final uri = Uri.parse(

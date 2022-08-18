@@ -4,11 +4,14 @@ import 'package:about_abe_2/api/http.dart';
 import 'package:about_abe_2/constants/sns.dart';
 import 'package:about_abe_2/models/home/topic.dart';
 import 'package:about_abe_2/models/qiita/user.dart';
+import 'package:anabebe_packages/utils/log.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'provider.freezed.dart';
+
+final _logger = Logger();
 
 final _qiitaToken = dotenv.get('QIITA_AUTH_TOKEN');
 
@@ -20,18 +23,28 @@ class _QiitaNotifier extends StateNotifier<QiitaState> {
   _QiitaNotifier() : super(const QiitaState());
 
   Future<void> getUser() async {
-    final uri = Uri.parse('${SnsConst().qiitaApiUrl}/users/anabebe');
-    final headers = <String, String>{
-      'content-type': 'application/json',
-      'Authorization': 'Bearer $_qiitaToken',
-    };
-    final result = await HttpClient().get(uri, headers);
-    final json = jsonDecode(result);
-    state = state.copyWith(user: QiitaUserModel.fromJson(json));
+    try {
+      _logger.setup('QIITA');
+      state = state.copyWith(isLoading: true);
+      final uri = Uri.parse('${SnsConst().qiitaApiUrl}/users/anabebe');
+      final headers = <String, String>{
+        'content-type': 'application/json',
+        'Authorization': 'Bearer $_qiitaToken',
+      };
+      final result = await HttpClient().get(uri, headers);
+      final json = jsonDecode(result);
+      state = state.copyWith(user: QiitaUserModel.fromJson(json));
+    } catch (e) {
+      rethrow;
+    } finally {
+      state = state.copyWith(isLoading: false);
+    }
   }
 
   Future<void> getItems() async {
     try {
+      _logger.setup('QIITA');
+      state = state.copyWith(isLoading: true);
       final uri = Uri.parse(
         '${SnsConst().qiitaApiUrl}/authenticated_user/items?page=1&per_page=15',
       );
@@ -46,9 +59,10 @@ class _QiitaNotifier extends StateNotifier<QiitaState> {
         items.add(TopicModel.fromQiitaJson(json));
       }).toList();
       state = state.copyWith(items: items);
-    } catch (error) {
-      //
-      print('error: ${error.toString()}');
+    } catch (e) {
+      rethrow;
+    } finally {
+      state = state.copyWith(isLoading: false);
     }
   }
 }

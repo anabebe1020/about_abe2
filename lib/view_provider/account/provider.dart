@@ -1,11 +1,13 @@
 import 'package:about_abe_2/models/account/model.dart';
-import 'package:about_abe_2/models/github/repos.dart';
 import 'package:about_abe_2/provider/github/provider.dart';
 import 'package:about_abe_2/provider/qiita/provider.dart';
+import 'package:anabebe_packages/utils/log.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'provider.freezed.dart';
+
+final _logger = Logger();
 
 final accountProvider = StateNotifierProvider<_AccountNotifier, AccountState>(
   (ref) => _AccountNotifier(ref),
@@ -17,11 +19,9 @@ class _AccountNotifier extends StateNotifier<AccountState> {
 
   Future<void> getUserInfo() async {
     try {
+      _logger.setup('ACCOUNT');
       state = state.copyWith(isLoading: true);
       // get
-      await ref.read(qiitaProvider.notifier).getUser();
-      await ref.read(githubProvider.notifier).getUser();
-      await ref.read(githubProvider.notifier).getRepos();
       final qiita = ref.watch(qiitaProvider);
       final github = ref.watch(githubProvider);
       // set
@@ -38,7 +38,6 @@ class _AccountNotifier extends StateNotifier<AccountState> {
           github: github.user?.userId,
           twitter: github.user?.twitter,
         ),
-        repos: github.repos,
       );
     } catch (e) {
       rethrow;
@@ -55,7 +54,6 @@ class AccountState with _$AccountState {
     AccountHeaderModel? header,
     String? introduction,
     AccountInfoModel? information,
-    List<GitHubRepoModel>? repos,
     String? errorMessage,
   }) = _AccountState;
 }

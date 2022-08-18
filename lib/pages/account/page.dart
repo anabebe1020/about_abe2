@@ -1,10 +1,8 @@
 import 'package:about_abe_2/common/sns_icons.dart';
 import 'package:about_abe_2/constants/sns.dart';
 import 'package:about_abe_2/models/account/model.dart';
-import 'package:about_abe_2/models/github/repos.dart';
 import 'package:about_abe_2/pages/account/info_item.dart';
 import 'package:about_abe_2/view_provider/account/provider.dart';
-import 'package:about_abe_2/widgets/cards.dart';
 import 'package:about_abe_2/widgets/face_circle.dart';
 import 'package:about_abe_2/widgets/headline.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +25,6 @@ class AccountPage extends ConsumerWidget {
               _MeWidget(header: state.header),
               _Introduction(introduction: state.introduction),
               _Information(information: state.information),
-              _Repositories(repos: state.repos),
             ],
           );
   }
@@ -135,40 +132,6 @@ class _Information extends StatelessWidget {
                   url: twitterUrl,
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Repositories extends StatelessWidget {
-  final List<GitHubRepoModel>? repos;
-  const _Repositories({Key? key, this.repos}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final cards = repos?.map((repo) => ReposCard(repo: repo)).toList() ?? [];
-
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Headline(text: 'Repositories'),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 140,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: cards.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: cards[index],
-                );
-              },
             ),
           ),
         ],

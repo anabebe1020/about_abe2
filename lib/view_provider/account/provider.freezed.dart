@@ -20,7 +20,6 @@ mixin _$AccountState {
   AccountHeaderModel? get header => throw _privateConstructorUsedError;
   String? get introduction => throw _privateConstructorUsedError;
   AccountInfoModel? get information => throw _privateConstructorUsedError;
-  List<GitHubRepoModel>? get repos => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -38,7 +37,6 @@ abstract class $AccountStateCopyWith<$Res> {
       AccountHeaderModel? header,
       String? introduction,
       AccountInfoModel? information,
-      List<GitHubRepoModel>? repos,
       String? errorMessage});
 }
 
@@ -56,7 +54,6 @@ class _$AccountStateCopyWithImpl<$Res> implements $AccountStateCopyWith<$Res> {
     Object? header = freezed,
     Object? introduction = freezed,
     Object? information = freezed,
-    Object? repos = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
@@ -76,10 +73,6 @@ class _$AccountStateCopyWithImpl<$Res> implements $AccountStateCopyWith<$Res> {
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
               as AccountInfoModel?,
-      repos: repos == freezed
-          ? _value.repos
-          : repos // ignore: cast_nullable_to_non_nullable
-              as List<GitHubRepoModel>?,
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -100,7 +93,6 @@ abstract class _$$_AccountStateCopyWith<$Res>
       AccountHeaderModel? header,
       String? introduction,
       AccountInfoModel? information,
-      List<GitHubRepoModel>? repos,
       String? errorMessage});
 }
 
@@ -121,7 +113,6 @@ class __$$_AccountStateCopyWithImpl<$Res>
     Object? header = freezed,
     Object? introduction = freezed,
     Object? information = freezed,
-    Object? repos = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_$_AccountState(
@@ -141,10 +132,6 @@ class __$$_AccountStateCopyWithImpl<$Res>
           ? _value.information
           : information // ignore: cast_nullable_to_non_nullable
               as AccountInfoModel?,
-      repos: repos == freezed
-          ? _value._repos
-          : repos // ignore: cast_nullable_to_non_nullable
-              as List<GitHubRepoModel>?,
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -161,9 +148,7 @@ class _$_AccountState implements _AccountState {
       this.header,
       this.introduction,
       this.information,
-      final List<GitHubRepoModel>? repos,
-      this.errorMessage})
-      : _repos = repos;
+      this.errorMessage});
 
   @override
   @JsonKey()
@@ -174,21 +159,12 @@ class _$_AccountState implements _AccountState {
   final String? introduction;
   @override
   final AccountInfoModel? information;
-  final List<GitHubRepoModel>? _repos;
-  @override
-  List<GitHubRepoModel>? get repos {
-    final value = _repos;
-    if (value == null) return null;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   @override
   final String? errorMessage;
 
   @override
   String toString() {
-    return 'AccountState(isLoading: $isLoading, header: $header, introduction: $introduction, information: $information, repos: $repos, errorMessage: $errorMessage)';
+    return 'AccountState(isLoading: $isLoading, header: $header, introduction: $introduction, information: $information, errorMessage: $errorMessage)';
   }
 
   @override
@@ -202,7 +178,6 @@ class _$_AccountState implements _AccountState {
                 .equals(other.introduction, introduction) &&
             const DeepCollectionEquality()
                 .equals(other.information, information) &&
-            const DeepCollectionEquality().equals(other._repos, _repos) &&
             const DeepCollectionEquality()
                 .equals(other.errorMessage, errorMessage));
   }
@@ -214,7 +189,6 @@ class _$_AccountState implements _AccountState {
       const DeepCollectionEquality().hash(header),
       const DeepCollectionEquality().hash(introduction),
       const DeepCollectionEquality().hash(information),
-      const DeepCollectionEquality().hash(_repos),
       const DeepCollectionEquality().hash(errorMessage));
 
   @JsonKey(ignore: true)
@@ -229,7 +203,6 @@ abstract class _AccountState implements AccountState {
       final AccountHeaderModel? header,
       final String? introduction,
       final AccountInfoModel? information,
-      final List<GitHubRepoModel>? repos,
       final String? errorMessage}) = _$_AccountState;
 
   @override
@@ -240,8 +213,6 @@ abstract class _AccountState implements AccountState {
   String? get introduction;
   @override
   AccountInfoModel? get information;
-  @override
-  List<GitHubRepoModel>? get repos;
   @override
   String? get errorMessage;
   @override

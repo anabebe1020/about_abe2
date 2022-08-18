@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<TopicModel>? get topics => throw _privateConstructorUsedError;
+  List<GitHubRepoModel>? get repos => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,11 @@ mixin _$HomeState {
 abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res>;
-  $Res call({bool isLoading, List<TopicModel>? topics, String? errorMessage});
+  $Res call(
+      {bool isLoading,
+      List<TopicModel>? topics,
+      List<GitHubRepoModel>? repos,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -44,6 +49,7 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
   $Res call({
     Object? isLoading = freezed,
     Object? topics = freezed,
+    Object? repos = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
@@ -55,6 +61,10 @@ class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
           ? _value.topics
           : topics // ignore: cast_nullable_to_non_nullable
               as List<TopicModel>?,
+      repos: repos == freezed
+          ? _value.repos
+          : repos // ignore: cast_nullable_to_non_nullable
+              as List<GitHubRepoModel>?,
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -69,7 +79,11 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
           _$_HomeState value, $Res Function(_$_HomeState) then) =
       __$$_HomeStateCopyWithImpl<$Res>;
   @override
-  $Res call({bool isLoading, List<TopicModel>? topics, String? errorMessage});
+  $Res call(
+      {bool isLoading,
+      List<TopicModel>? topics,
+      List<GitHubRepoModel>? repos,
+      String? errorMessage});
 }
 
 /// @nodoc
@@ -86,6 +100,7 @@ class __$$_HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = freezed,
     Object? topics = freezed,
+    Object? repos = freezed,
     Object? errorMessage = freezed,
   }) {
     return _then(_$_HomeState(
@@ -97,6 +112,10 @@ class __$$_HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
           ? _value._topics
           : topics // ignore: cast_nullable_to_non_nullable
               as List<TopicModel>?,
+      repos: repos == freezed
+          ? _value._repos
+          : repos // ignore: cast_nullable_to_non_nullable
+              as List<GitHubRepoModel>?,
       errorMessage: errorMessage == freezed
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -111,8 +130,10 @@ class _$_HomeState implements _HomeState {
   const _$_HomeState(
       {this.isLoading = false,
       final List<TopicModel>? topics,
+      final List<GitHubRepoModel>? repos,
       this.errorMessage})
-      : _topics = topics;
+      : _topics = topics,
+        _repos = repos;
 
   @override
   @JsonKey()
@@ -126,12 +147,21 @@ class _$_HomeState implements _HomeState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<GitHubRepoModel>? _repos;
+  @override
+  List<GitHubRepoModel>? get repos {
+    final value = _repos;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? errorMessage;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, topics: $topics, errorMessage: $errorMessage)';
+    return 'HomeState(isLoading: $isLoading, topics: $topics, repos: $repos, errorMessage: $errorMessage)';
   }
 
   @override
@@ -141,6 +171,7 @@ class _$_HomeState implements _HomeState {
             other is _$_HomeState &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other._topics, _topics) &&
+            const DeepCollectionEquality().equals(other._repos, _repos) &&
             const DeepCollectionEquality()
                 .equals(other.errorMessage, errorMessage));
   }
@@ -150,6 +181,7 @@ class _$_HomeState implements _HomeState {
       runtimeType,
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(_topics),
+      const DeepCollectionEquality().hash(_repos),
       const DeepCollectionEquality().hash(errorMessage));
 
   @JsonKey(ignore: true)
@@ -162,12 +194,15 @@ abstract class _HomeState implements HomeState {
   const factory _HomeState(
       {final bool isLoading,
       final List<TopicModel>? topics,
+      final List<GitHubRepoModel>? repos,
       final String? errorMessage}) = _$_HomeState;
 
   @override
   bool get isLoading;
   @override
   List<TopicModel>? get topics;
+  @override
+  List<GitHubRepoModel>? get repos;
   @override
   String? get errorMessage;
   @override
